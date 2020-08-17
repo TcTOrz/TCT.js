@@ -1,0 +1,58 @@
+<html>
+  <body>
+    <div class="tiles">
+      <button onClick="test('list')">click list</button>
+      <button onClick="test('main')">click main</button>
+      <button onClick="test('detail')">click detail</button>
+    </div>
+
+    <div class="pageview" style="background: #3b76c0" id="-main-view">
+        <h3>首页</h3>
+        <div title="-list-view" class="right-arrow"></div>
+    </div>
+    <div class="pageview" style="background: #58c03b;display: none" id="-list-view">
+        <h3>列表页面</h3>
+        <div class="left-arrow"></div>
+        <div title="-detail-view" class="right-arrow"></div>
+    </div>
+    <div class="pageview" style="background: #c03b25;display: none" id="-detail-view">
+        <h3>列表详情页面</h3>
+        <div class="left-arrow"></div>
+    </div>
+  </body>
+  <script src='./Tct.js'></script>
+  <script>
+    let callback = (url) => () => {
+      let views = document.querySelectorAll('.pageview')
+      let arr = Array.from(views);
+      arr.forEach(v => {
+        if(v.id === `-${url}-view`) {
+          v.style.display = ''
+        }else {
+          v.style.display = 'none'
+        }
+      });
+    };
+
+    TCT.reg('main', callback('main')).reg('list', callback('list')).reg('detail', callback('detail'));
+
+    let obj = {index: 'main'};
+    TCT.init(obj)
+
+    function test(url) {
+      location.hash = url
+      TCT.init({index: url})
+    }
+  </script>
+  <style>
+    .pageview{
+      /* position: absolute; */
+      left: 0;
+      top:0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      -webkit-transition: 0.4s ease-out -webkit-transform;
+    }
+  </style>
+</html>
