@@ -1,9 +1,9 @@
 <html>
   <body>
     <div class="tiles">
-      <button onClick="test('list')">click list</button>
-      <button onClick="test('main')">click main</button>
-      <button onClick="test('detail')">click detail</button>
+      <button onClick="clickbtn('list')">click list</button>
+      <button onClick="clickbtn('main')">click main</button>
+      <button onClick="clickbtn('detail')">click detail</button>
     </div>
 
     <div class="pageview" style="background: #3b76c0" id="-main-view">
@@ -23,36 +23,39 @@
   <script src='./Tct.js'></script>
   <script>
     let callback = (url) => () => {
-      let views = document.querySelectorAll('.pageview')
-      let arr = Array.from(views);
+      const views = document.querySelectorAll('.pageview'),
+        arr = Array.from(views)
       arr.forEach(v => {
         if(v.id === `-${url}-view`) {
           v.style.display = ''
         }else {
           v.style.display = 'none'
         }
-      });
-    };
+      })
+    }
 
-    TCT.reg('main', callback('main')).reg('list', callback('list')).reg('detail', callback('detail'));
+    // 链式注册
+    TCT.reg('main', callback('main')).reg('list', callback('list')).reg('detail', callback('detail'))
 
-    let obj = {index: 'main'};
-    TCT.init(obj)
+    let obj = {index: 'main'}
 
-    function test(url) {
+    if(location.hash && location.hash.slice(1) !== 'main') {
+      obj.index = location.hash.slice(1)
+    }
+    // TCT.init(obj)
+    // 防止出现第一次加载不是主页hash的情况。
+    callback(obj.index)()
+
+    function clickbtn(url) {
       location.hash = url
-      TCT.init({index: url})
     }
   </script>
   <style>
     .pageview{
-      /* position: absolute; */
       left: 0;
       top:0;
       width: 100%;
-      height: 100%;
       overflow: hidden;
-      -webkit-transition: 0.4s ease-out -webkit-transform;
     }
   </style>
 </html>

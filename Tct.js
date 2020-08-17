@@ -1,14 +1,16 @@
 var TCT = function(index) {
     onhashchange = () => {
-        TCT[index].apply(this);
+        const hash = location.hash.slice(1)
+        if(hash)
+            TCT[hash].apply(this)
     },
     TCT = {
         init: function(o) {
-            index = o.index;
+            // index = o.index
         },
         reg: function(url='home', callback=()=>{}) {
-            TCT[url] = callback;
-            return this;
+            TCT[url] = callback
+            return this
         },
     };
     return TCT;
