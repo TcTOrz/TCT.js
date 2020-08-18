@@ -1,0 +1,24 @@
+{
+  "name": "tct.js",
+  "version": "1.0.2",
+  "description": "轻量单页应用",
+  "main": "Tct.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TcTOrz/TCT.js.git"
+  },
+  "keywords": [
+    "hash",
+    "location",
+    "example"
+  ],
+  "author": "Li Jian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TcTOrz/TCT.js/issues"
+  },
+  "homepage": "https://github.com/TcTOrz/TCT.js#readme"
+}
